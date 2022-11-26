@@ -19,7 +19,7 @@ return new class extends Migration
             $table -> string("email");
             $table -> string("password");
             $table -> integer("fate");
-            $table -> string("god_id"); //foreign
+            $table -> string("god_id"); //foreig
             $table -> integer("wisdom");
             $table -> integer("nobility");
             $table -> integer("virtue");
