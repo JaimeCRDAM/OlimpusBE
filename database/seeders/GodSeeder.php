@@ -17,18 +17,7 @@ class GodSeeder extends Seeder
     public function run()
     {
         God::factory()
-            ->count(25)
-            ->has(Human::factory())
-            ->create();
-
-        God::factory()
-            ->count(75)
-            ->has(Human::factory())
-            ->create();
-
-        God::factory()
-            ->count(50)
-            ->has(Human::factory())
+            ->count(3)
             ->create();
     }
 }

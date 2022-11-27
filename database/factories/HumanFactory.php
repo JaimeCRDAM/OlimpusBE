@@ -20,12 +20,11 @@ class HumanFactory extends Factory
     public function definition()
     {
         return [
-            'humanid' =>  rand(1,115),
+            'humanid' => rand(0, 255),
             'name' => fake() -> name(),
             'email' => fake() -> email(),
             'password' => fake() -> password(),
             'fate' => 0,
-            'god_id' => God::factory(),
             'wisdom' => fake() -> randomDigit(),
             'nobility' => fake() -> randomDigit(),
             'virtue' => fake() -> randomDigit(),

@@ -20,11 +20,11 @@ class GodFactory extends Factory
 
         return [
             'godname' => fake() -> name,
-            'wisdom' => fake() -> randomDigit(),
-            'nobility' => fake() -> randomDigit(),
-            'virtue' => fake() -> randomDigit(),
-            'wickedness' => fake() -> randomDigit(),
-            'audacity' => fake() -> randomDigit(),
+            'wisdom' => rand(1, 5),
+            'nobility' => rand(1, 5),
+            'virtue' => rand(1, 5),
+            'wickedness' => rand(1, 5),
+            'audacity' => rand(1, 5),
             'password' => fake() -> password(),
             'avatar' => Str::random(10)
         ];

@@ -13,8 +13,8 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('gods', function (Blueprint $table) {
-            $table->string("godname"); //key
+        Schema::create('god', function (Blueprint $table) {
+            $table->string("godname") -> primary() ->unique(); //key
             $table->integer("wisdom");
             $table->integer("nobility");
             $table->integer("virtue");
@@ -32,6 +32,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('gods');
+        Schema::dropIfExists('god');
     }
 };

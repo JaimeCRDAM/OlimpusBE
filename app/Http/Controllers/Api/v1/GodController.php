@@ -1,12 +1,11 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api\v1;
 
-use App\Models\God;
+use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreGodRequest;
 use App\Http\Requests\UpdateGodRequest;
-use App\Models\Human;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\God;
 
 class GodController extends Controller
 {
@@ -14,12 +13,12 @@ class GodController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Database\Eloquent\Collection
      */
 
     public function index()
     {
-        //
+        return God::all();
     }
 
     /**
@@ -47,11 +46,12 @@ class GodController extends Controller
      * Display the specified resource.
      *
      * @param  \App\Models\God  $god
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function show(God $god)
     {
-        //
+        $ak = God::find($god);
+        return response()->json($ak,200);
     }
 
     /**

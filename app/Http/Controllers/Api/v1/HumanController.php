@@ -1,53 +1,38 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api\v1;
 
-use App\Models\Human;
+use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreHumanRequest;
 use App\Http\Requests\UpdateHumanRequest;
+use App\Models\God;
+use App\Models\Human;
+use Hash;
+use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Support\Facades\DB;
+use mysql_xdevapi\Exception;
 
 class HumanController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return Collection
      */
     public function index()
     {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \App\Http\Requests\StoreHumanRequest  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(StoreHumanRequest $request)
-    {
-        //
+        return Human::all();
     }
 
     /**
      * Display the specified resource.
      *
      * @param  \App\Models\Human  $human
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function show(Human $human)
     {
-        //
+        return response()->json($human,200);
     }
 
     /**

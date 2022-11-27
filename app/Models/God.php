@@ -2,14 +2,36 @@
 
 namespace App\Models;
 
+use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
+use PHPOpenSourceSaver\JWTAuth\Contracts\JWTSubject;
 
-class God extends Model
+class God extends Authenticatable implements JWTSubject
 {
     use HasFactory;
+    protected $primaryKey = 'godname';
+    public $incrementing = false;
     public $timestamps = false;
+    protected $keyType = 'string';
+    public $table = "god";
+
     public function humans(){
-        return $this->hasMany(Human::class);
+        return $this->hasMany(Human::class, "blessed", "godname");
+    }
+
+    protected $hidden = [
+        'password'
+    ];
+
+    public function getJWTIdentifier()
+    {
+        return $this->getKey();
+    }
+
+    public function getJWTCustomClaims()
+    {
+        return [];
     }
 }
