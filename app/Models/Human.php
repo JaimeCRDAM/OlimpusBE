@@ -16,7 +16,7 @@ class Human extends Authenticatable implements JWTSubject
     public $timestamps = false;
     public $incrementing = true;
     protected $keyType = 'integer';
-    protected $table='human';
+    public $table='human';
 
     /**
      * The attributes that are mass assignable.

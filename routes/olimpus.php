@@ -1,7 +1,9 @@
 <?php
 
+
 use App\Http\Controllers\Api\v1\GodController;
 use App\Http\Controllers\Api\v1\HumanController;
+use App\Http\Controllers\AuthController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -20,4 +22,17 @@ use Illuminate\Support\Facades\Route;
 Route::apiResource("gods", GodController::class);
 
 Route::apiResource("humans", HumanController::class);
+
+Route::controller(AuthController::class)->group(function () {
+    Route::post('humans/login', 'login');
+    Route::post('humans/register', 'register');
+    Route::post('humans/logout', 'logout');
+    Route::post('humans/refresh', 'refresh');
+});
+
+Route::controller(AuthController::class)->group(function () {
+    Route::post('gods/login', 'login');
+    Route::post('gods/logout', 'logout');
+    Route::post('gods/refresh', 'refresh');
+});
 

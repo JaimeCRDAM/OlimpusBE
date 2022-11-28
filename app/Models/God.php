@@ -8,7 +8,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use PHPOpenSourceSaver\JWTAuth\Contracts\JWTSubject;
 
-class God extends Authenticatable implements JWTSubject
+class God extends User
 {
     use HasFactory;
     protected $primaryKey = 'godname';

@@ -11,40 +11,68 @@ use Illuminate\Support\Facades\Hash;
 class AuthController extends Controller
 {
 
+
     public function __construct()
     {
+
         $this->middleware('auth:api', ['except' => ['login','register']]);
     }
 
     public function login(Request $request)
     {
-        $request->validate([
-            'email' => 'required|string|email',
-            'password' => 'required|string',
-        ]);
-        $credentials = $request->only('email', 'password');
-
-        $token = Auth::attempt($credentials);
-        if (!$token) {
-            return response()->json([
+        if(str_contains($request ->url(), "olimpus/humans/login")){
+            $response = $this->loginHumans($request);
+        } elseif(str_contains($request ->url(), "olimpus/gods/login")){
+            $response = $this -> loginGods($request);
+        }else{
+            $response = response()->json([
                 'status' => 'error',
                 'message' => 'Unauthorized',
             ], 401);
         }
+        return $response;
+    }
 
-        $user = Auth::user();
+    public function register(Request $request){
+
+        if(str_contains($request ->url(), "olimpus/humans/register")){
+            $response = $this->registerHuman(StoreHumanRequest::createFrom($request));
+        }else{
+            $response = response()->json([
+                'status' => 'error',
+                'message' => 'Unauthorized',
+            ], 401);
+        }
+        return $response;
+
+    }
+
+    public function logout()
+    {
+        Auth::logout();
         return response()->json([
             'status' => 'success',
-            'user' => $user,
+            'message' => 'Successfully logged out',
+        ]);
+    }
+
+    public function refresh()
+    {
+        return response()->json([
+            'status' => 'success',
+            'user' => Auth::user(),
             'authorisation' => [
-                'token' => $token,
+                'token' => Auth::refresh(),
                 'type' => 'bearer',
             ]
         ]);
     }
 
-    public function register(StoreHumanRequest $request){
+
+    private function registerHuman(StoreHumanRequest $request){
+
         $validated = $request -> validate($request -> rules());
+
 
         if(!$validated) return null;
         $virtues = [
@@ -83,40 +111,69 @@ class AuthController extends Controller
         ]);
 
         $newHuman = new Human;
-            $newHuman -> forceFill($request -> request -> all());
-            $newHuman -> save();
-            $token = Auth::login($newHuman);
-            return response()->json([
-                'status' => 'success',
-                'message' => 'User created successfully',
-                'user' => $newHuman,
-                'authorisation' => [
-                    'token' => $token,
-                    'type' => 'bearer',
-                ]
-            ]);
-        /*} catch (\Exception $e){
-            echo $e -> getTraceAsString();
-            return response()->json(['mens' => 'Bad request'],400);
-        }*/
-    }
-
-    public function logout()
-    {
-        Auth::logout();
+        $newHuman -> forceFill($request -> request -> all());
+        $newHuman -> save();
+        //auth()->guard("human")->login($newHuman);
+        $token = auth()->guard("human")->login($newHuman);    //Auth::login($newHuman);
         return response()->json([
             'status' => 'success',
-            'message' => 'Successfully logged out',
+            'message' => 'User created successfully',
+            'user' => $newHuman,
+            'authorisation' => [
+                'token' => $token,
+                'type' => 'bearer',
+            ]
         ]);
     }
 
-    public function refresh()
-    {
+    private function loginHumans(Request $request){
+        $request->validate([
+            'email' => 'required|string|email',
+            'password' => 'required|string',
+        ]);
+        $credentials = $request->only('email', 'password');
+
+
+        $token = auth()->guard("human") ->attempt($credentials);   //Auth::attempt($credentials);
+        if (!$token) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Unauthorized',
+            ], 401);
+        }
+
+        $user = auth()->guard("human") ->user();//Auth::user();
         return response()->json([
             'status' => 'success',
-            'user' => Auth::user(),
+            'user' => $user,
             'authorisation' => [
-                'token' => Auth::refresh(),
+                'token' => $token,
+                'type' => 'bearer',
+            ]
+        ]);
+    }
+    private function loginGods(Request $request){
+        $request->validate([
+            'godname' => 'required|string',
+            'password' => 'required|string',
+        ]);
+        $credentials = $request->only('godname', 'password');
+
+
+        $token = auth()->guard("god")-> attempt($credentials);//Auth::attempt($credentials);
+        if (!$token) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Unauthorized',
+            ], 401);
+        }
+
+        $user = auth()->guard("god")-> user();//Auth::user();
+        return response()->json([
+            'status' => 'success',
+            'user' => $user,
+            'authorisation' => [
+                'token' => $token,
                 'type' => 'bearer',
             ]
         ]);

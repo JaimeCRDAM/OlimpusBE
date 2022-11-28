@@ -16,7 +16,6 @@ return [
     'defaults' => [
         'guard' => 'api',
         'passwords' => 'users',
-
     ],
 
     /*
@@ -45,6 +44,14 @@ return [
             'driver' => 'jwt',
             'provider' => 'users',
         ],
+        'human' =>[
+            'driver' => 'jwt',
+            'provider' => 'human',
+        ],
+        'god' => [
+            'driver' => 'jwt',
+            'provider' => 'god',
+        ],
     ],
 
     /*
@@ -65,15 +72,14 @@ return [
     */
 
     'providers' => [
-        'users' => [
+        'human' => [
             'driver' => 'eloquent',
             'model' => App\Models\Human::class,
         ],
-
-        // 'users' => [
-        //     'driver' => 'database',
-        //     'table' => 'users',
-        // ],
+        'god' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\God::class,
+        ],
     ],
 
     /*
