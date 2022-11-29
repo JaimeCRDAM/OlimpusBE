@@ -113,7 +113,6 @@ class AuthController extends Controller
         $newHuman = new Human;
         $newHuman -> forceFill($request -> request -> all());
         $newHuman -> save();
-        //auth()->guard("human")->login($newHuman);
         $token = auth()->guard("human")->login($newHuman);    //Auth::login($newHuman);
         return response()->json([
             'status' => 'success',
