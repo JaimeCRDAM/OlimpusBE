@@ -25,9 +25,8 @@ class StoreHumanRequest extends FormRequest
     {
         return [
             'name' => ["required"],
-            'email' => ["required", "email"],
+            'email' => ["required", "email", "unique:human,email"],
             'password' => ["required", "string", "min:6"],
-            'avatar' => ['required'],
             'fate' => ['prohibited'],
             'blessed' => ['prohibited'],
             'wisdom' => ['prohibited'],

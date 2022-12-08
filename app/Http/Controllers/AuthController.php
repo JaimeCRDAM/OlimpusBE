@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use App\Http\Requests\StoreHumanRequest;
 use App\Models\Human;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -69,19 +70,16 @@ class AuthController extends Controller
     }
 
 
+    /**
+     * @throws Exception
+     */
     private function registerHuman(StoreHumanRequest $request){
 
         $validated = $request -> validate($request -> rules());
 
 
         if(!$validated) return null;
-        $virtues = [
-            rand(1, 5),
-            rand(1, 5),
-            rand(1, 5),
-            rand(1, 5),
-            rand(1, 5)
-        ];
+        $virtues = array_fill(0, 5, random_int(1, 5));
 
         $gods = DB::table("god") -> select('wisdom', 'nobility', 'virtue', 'wickedness', 'audacity') -> get();
         $godNames = DB::table("god") -> select('godname') -> get();
@@ -95,6 +93,7 @@ class AuthController extends Controller
         }); // Algoritmo para el mas compatible
 
         $mostCompatible = array_search(min($compatibility ->all()), $compatibility ->all());  // Algoritmo para el mas compatible
+
 
         $request -> request -> set('password', Hash::make($request -> password));
 

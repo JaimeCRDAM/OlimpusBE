@@ -22,7 +22,12 @@ class God extends User
     }
 
     protected $hidden = [
-        'password'
+        'password',
+        'wisdom',
+        'nobility',
+        'virtue',
+        'wickedness',
+        'audacity',
     ];
 
     public function getJWTIdentifier()
