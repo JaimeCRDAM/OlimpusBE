@@ -9,41 +9,23 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 
-class AuthController extends Controller
+class AuthHumanController extends Controller
 {
 
 
     public function __construct()
     {
-
-        $this->middleware('auth:api', ['except' => ['login','register']]);
+        $this->middleware('auth:human', ['except' => ['login','register']]);
     }
 
     public function login(Request $request)
     {
-        if(str_contains($request ->url(), "olimpus/humans/login")){
-            $response = $this->loginHumans($request);
-        } elseif(str_contains($request ->url(), "olimpus/gods/login")){
-            $response = $this -> loginGods($request);
-        }else{
-            $response = response()->json([
-                'status' => 'error',
-                'message' => 'Unauthorized',
-            ], 401);
-        }
+        $response = $this->loginHumans($request);
         return $response;
     }
 
     public function register(Request $request){
-
-        if(str_contains($request ->url(), "olimpus/humans/register")){
-            $response = $this->registerHuman(StoreHumanRequest::createFrom($request));
-        }else{
-            $response = response()->json([
-                'status' => 'error',
-                'message' => 'Unauthorized',
-            ], 401);
-        }
+        $response = $this->registerHuman(StoreHumanRequest::createFrom($request));
         return $response;
 
     }
@@ -150,31 +132,4 @@ class AuthController extends Controller
             ]
         ]);
     }
-    private function loginGods(Request $request){
-        $request->validate([
-            'godname' => 'required|string',
-            'password' => 'required|string',
-        ]);
-        $credentials = $request->only('godname', 'password');
-
-
-        $token = auth()->guard("god")-> attempt($credentials);//Auth::attempt($credentials);
-        if (!$token) {
-            return response()->json([
-                'status' => 'error',
-                'message' => 'Unauthorized',
-            ], 401);
-        }
-
-        $user = auth()->guard("god")-> user();//Auth::user();
-        return response()->json([
-            'status' => 'success',
-            'user' => $user,
-            'authorisation' => [
-                'token' => $token,
-                'type' => 'bearer',
-            ]
-        ]);
-    }
-
 }
