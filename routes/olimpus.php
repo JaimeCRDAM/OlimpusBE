@@ -20,23 +20,25 @@ use Illuminate\Support\Facades\Route;
 */
 
 
-Route::apiResource("gods", GodController::class);
-
-Route::apiResource("humans", HumanController::class);
-
 Route::controller(AuthGodController::class)->group(function () {
     /////
     Route::post('gods/login', 'login');
     Route::post('gods/logout', 'logout');
     Route::post('gods/refresh', 'refresh');
 });
+
 Route::controller(AuthHumanController::class)->group(function () {
-    /////
+
+
     Route::post('humans/login', 'login');
     Route::post('humans/register', 'register');
     Route::post('humans/logout', 'logout');
     Route::post('humans/refresh', 'refresh');
+    Route::post('humans/avatar', 'setAvatar');
+    Route::post('humans/getavatar', 'getAvatar');
 });
+
+
 
 
 

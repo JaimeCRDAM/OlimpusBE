@@ -51,7 +51,7 @@ return [
         'god' => [
             'driver' => 'jwt',
             'provider' => 'god',
-        ],
+        ]
     ],
 
     /*
@@ -79,7 +79,7 @@ return [
         'god' => [
             'driver' => 'eloquent',
             'model' => App\Models\God::class,
-        ],
+        ]
     ],
 
     /*

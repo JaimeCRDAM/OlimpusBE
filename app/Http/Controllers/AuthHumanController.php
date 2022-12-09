@@ -2,12 +2,16 @@
 
 namespace App\Http\Controllers;
 use App\Http\Requests\StoreHumanRequest;
+use App\Models\Avatar;
 use App\Models\Human;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
+use PHPOpenSourceSaver\JWTAuth\Exceptions\JWTException;
+use PHPOpenSourceSaver\JWTAuth\Facades\JWTAuth;
 
 class AuthHumanController extends Controller
 {
@@ -94,7 +98,7 @@ class AuthHumanController extends Controller
         $newHuman = new Human;
         $newHuman -> forceFill($request -> request -> all());
         $newHuman -> save();
-        $token = auth()->guard("human")->login($newHuman);    //Auth::login($newHuman);
+        $token = auth()->guard("human")->login($newHuman);//Auth::login($newHuman);
         return response()->json([
             'status' => 'success',
             'message' => 'User created successfully',
@@ -114,7 +118,7 @@ class AuthHumanController extends Controller
         $credentials = $request->only('email', 'password');
 
 
-        $token = auth()->guard("human") ->attempt($credentials);   //Auth::attempt($credentials);
+        $token = auth()->guard("human") ->attempt($credentials);//Auth::attempt($credentials);
         if (!$token) {
             return response()->json([
                 'status' => 'error',
@@ -130,6 +134,33 @@ class AuthHumanController extends Controller
                 'token' => $token,
                 'type' => 'bearer',
             ]
+        ]);
+    }
+
+    /**
+     * @throws JWTException
+     */
+    public function setAvatar(Request $request){
+        $avatar = new Avatar($request -> request -> get("imageType"), $request -> request -> get("base64String"));
+        $token = JWTAuth::parseToken();
+        $user = JWTAuth::toUser($token);
+        $name = $avatar -> toFile();
+        if( str_contains($user -> getAttribute("avatar"), ".")){
+            unlink(storage_path(). '/app/public/'.$user -> getAttribute("avatar", $name));
+        }
+        $user -> setAttribute("avatar", $name);
+        $user -> save();
+        return response()->json([
+            'status' => 'success',
+        ]);
+    }
+
+    public function getAvatar(Request $request){
+        $token = JWTAuth::parseToken();
+        $user = JWTAuth::toUser($token);
+        return response()->json([
+            'status' => 'success',
+            'url' => '/storage/'.$user -> getAttribute("avatar")
         ]);
     }
 }

@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Api\v1\GodController;
 use App\Http\Controllers\Api\v1\HumanController;
+use App\Http\Controllers\AuthHumanController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
