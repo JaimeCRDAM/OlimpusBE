@@ -13,7 +13,7 @@ class StoreHumanRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -21,10 +21,21 @@ class StoreHumanRequest extends FormRequest
      *
      * @return array<string, mixed>
      */
-    public function rules()
+    public function rules(): array
     {
         return [
-            //
+            'name' => ["required"],
+            'email' => ["required", "email", "unique:humans,email"],
+            'password' => ["required", "string", "min:6"],
+            'fate' => ['prohibited'],
+            'god_id' => ['prohibited'],
+            'wisdom' => ['prohibited'],
+            'nobility' => ['prohibited'],
+            'virtue' => ['prohibited'],
+            'wickedness' => ['prohibited'],
+            'audacity' => ['prohibited'],
+            'alive' => ['prohibited'],
+            'destiny' => ['prohibited']
         ];
     }
 }
