@@ -13,6 +13,8 @@ Route::controller(GodAuthController::class)->group(function () {
     Route::post('/gods/refresh', 'refresh');
     Route::post('/gods/updatepassword', 'updatePassword');
     Route::post('/gods/avatar', 'updateAvatar');
+    Route::get("/gods/humans", 'humans');
+    Route::get("/gods/quests", 'quests');
 });
 
 Route::controller(QuestsController::class)->group(function () {

@@ -15,10 +15,10 @@ class QuestsController extends Controller
 
     public function index()
     {
-        $todos = Quests::all();
+        $quests = Quests::all();
         return response()->json([
             'status' => 'success',
-            'todos' => $todos,
+            'todos' => $quests,
         ]);
     }
 
@@ -35,7 +35,7 @@ class QuestsController extends Controller
         return response()->json([
             'status' => 'success',
             'message' => 'Quest created successfully',
-            'todo' => $quest,
+            'quest' => $quest,
         ]);
     }
 

@@ -126,12 +126,11 @@ class HumanAuthController extends Controller
     }
 
     public function updatePassword(Request $request){
-    $user = Auth::user();
-    $user -> setAttribute("password", Hash::make($request -> request ->get("password")));
-    $user -> save();
-    return response()->json([
-        'status' => 'success',
-    ]);
-}
-
+        $user = Auth::user();
+        $user -> setAttribute("password", Hash::make($request -> request ->get("password")));
+        $user -> save();
+        return response()->json([
+            'status' => 'success',
+        ]);
+    }
 }

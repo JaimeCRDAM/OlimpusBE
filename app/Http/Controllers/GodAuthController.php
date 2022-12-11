@@ -7,6 +7,7 @@ use App\Models\God;
 use App\Http\Requests\StoreGodRequest;
 use App\Http\Requests\UpdateGodRequest;
 use App\Models\Human;
+use App\Models\Quests;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -94,6 +95,25 @@ class GodAuthController extends Controller
 
         return response()->json([
             'status' => 'success',
+        ]);
+    }
+
+    public function humans(){
+        $user = Auth::user();
+        $id = $user -> getAttribute("id");
+        $humans = Human::where("god_id", $id) -> get();
+        return response()->json([
+            'status' => 'success',
+            'humans' => $humans,
+        ]);
+    }
+    public function quests(){
+        $user = Auth::user();
+        $id = $user -> getAttribute("id");
+        $Quests = Quests::where("god_id", $id) -> get();
+        return response()->json([
+            'status' => 'success',
+            'quests' => $Quests,
         ]);
     }
 }

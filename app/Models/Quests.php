@@ -9,4 +9,9 @@ class Quests extends Model
 {
     use HasFactory;
     public $timestamps = false;
+
+    protected $hidden = [
+        "god_id",
+        "id"
+    ];
 }
