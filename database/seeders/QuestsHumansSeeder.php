@@ -2,11 +2,11 @@
 
 namespace Database\Seeders;
 
-use App\Models\Human;
+use App\Models\QuestsHumans;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
-class HumanSeeder extends Seeder
+class QuestsHumansSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -15,8 +15,8 @@ class HumanSeeder extends Seeder
      */
     public function run()
     {
-        Human::factory()
-            ->count(25)
+        QuestsHumans::factory()
+            ->count(100)
             ->create();
     }
 }

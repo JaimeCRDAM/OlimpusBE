@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 
 /**
@@ -19,14 +20,14 @@ class GodFactory extends Factory
     {
 
         return [
-            'godname' => fake() -> name,
+            'god_name' => fake() -> name,
             'wisdom' => fake() -> randomDigit(),
             'nobility' => fake() -> randomDigit(),
             'virtue' => fake() -> randomDigit(),
             'wickedness' => fake() -> randomDigit(),
             'audacity' => fake() -> randomDigit(),
-            'password' => fake() -> password(),
-            'avatar' => Str::random(10)
+            'password' => Hash::make("p"),
+            'avatar' => "MaleVillDE.jpg"
         ];
     }
 }

@@ -8,13 +8,11 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use PHPOpenSourceSaver\JWTAuth\Contracts\JWTSubject;
 
-class God extends User
+class God extends Authenticatable implements JWTSubject
 {
-    use HasFactory;
-    protected $primaryKey = 'godname';
+    use HasFactory, Notifiable;
     public $incrementing = false;
     public $timestamps = false;
-    protected $keyType = 'string';
     public $table = "gods";
 
     public function humans(){
@@ -28,6 +26,7 @@ class God extends User
         'virtue',
         'wickedness',
         'audacity',
+        "id"
     ];
 
     public function getJWTIdentifier()

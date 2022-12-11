@@ -15,14 +15,14 @@ return new class extends Migration
     {
         Schema::create('gods', function (Blueprint $table) {
             $table -> id() ->autoIncrement();
-            $table->string("godname");
+            $table->string("god_name");
             $table->integer("wisdom");
             $table->integer("nobility");
             $table->integer("virtue");
             $table->integer("wickedness");
             $table->integer("audacity");
             $table->string("password");
-            $table->string("avatar");
+            $table->string("avatar") -> default("MaleVillDE.jpg");
         });
     }
 

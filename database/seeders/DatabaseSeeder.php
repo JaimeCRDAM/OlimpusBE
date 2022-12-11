@@ -3,6 +3,10 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\Quests;
+use App\Models\QuestsHumans;
+use App\Models\QuestsTypes;
+use Database\Factories\QuestsTypesFactory;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -17,14 +21,9 @@ class DatabaseSeeder extends Seeder
         $this -> call([
             GodSeeder::class,
             HumanSeeder::class,
-            CasualQuestSeeder::class,
-            ElectionSeeder::class,
-            FreeAnswerSeeder::class,
-            ValuationSeeder::class,
-            CasualQuestHumanSeeder::class,
-            ElectionHumanSeeder::class,
-            FreeAnswerHumanSeeder::class,
-            ValuationHumanSeeder::class
+            QuestsTypesSeeder::class,
+            QuestsSeeder::class,
+            QuestsHumansSeeder::class
         ]);
     }
 }

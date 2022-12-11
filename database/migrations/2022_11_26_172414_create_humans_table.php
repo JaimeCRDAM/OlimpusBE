@@ -14,18 +14,19 @@ return new class extends Migration
     public function up()
     {
         Schema::create('humans', function (Blueprint $table) {
-            $table -> integer("humanid"); //primary key
+            $table -> id() -> autoIncrement();
             $table -> string("name");
             $table -> string("email");
             $table -> string("password");
             $table -> integer("fate");
-            $table -> string("god_id"); //foreig
+            $table -> unsignedBigInteger("god_id");
+            $table -> foreign("god_id") -> references("id") -> on("gods");
             $table -> integer("wisdom");
             $table -> integer("nobility");
             $table -> integer("virtue");
             $table -> integer("wickedness");
             $table -> integer("audacity");
-            $table -> string("avatar");
+            $table -> string("avatar") -> default("MaleVillDE.jpg");
             $table -> boolean("alive");
             $table -> string("destiny");
         });

@@ -40,6 +40,14 @@ return [
             'driver' => 'session',
             'provider' => 'users',
         ],
+        'human' => [
+            'driver' => 'jwt',
+            'provider' => 'human',
+        ],
+        'god' => [
+            'driver' => 'jwt',
+            'provider' => 'god',
+        ],
     ],
 
     /*
@@ -63,6 +71,14 @@ return [
         'users' => [
             'driver' => 'eloquent',
             'model' => App\Models\User::class,
+        ],
+        'god' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\God::class,
+        ],
+        'human' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\Human::class,
         ],
 
         // 'users' => [
