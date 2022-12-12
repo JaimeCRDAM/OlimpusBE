@@ -15,6 +15,9 @@ Route::controller(GodAuthController::class)->group(function () {
     Route::post('/gods/avatar', 'updateAvatar');
     Route::get("/gods/humans", 'humans');
     Route::get("/gods/quests", 'quests');
+    Route::post("/gods/quests", 'assignQuests');
+    Route::post('/gods/Human', 'createHuman');
+
 });
 
 Route::controller(QuestsController::class)->group(function () {

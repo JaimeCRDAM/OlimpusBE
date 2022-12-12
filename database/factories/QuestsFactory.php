@@ -24,7 +24,7 @@ class QuestsFactory extends Factory
         }
         $random = rand(0, 3);
         if ($random == 0 ){
-            $keyWords = $this->faker -> randomAscii();
+            $keyWords = $this->faker -> randomLetter();
             $virtue = null;
         } else{
             $keyWords = null;
@@ -37,7 +37,8 @@ class QuestsFactory extends Factory
             "chance" => mt_rand() / mt_getrandmax(),
             "virtue" => $virtue,
             "key_words" => $keyWords,
-            "type_id" => QuestsFactory::$typeId[$random] -> id
+            "type_id" => QuestsFactory::$typeId[$random] -> id,
+            "description" => $this->faker -> randomLetter()
         ];
     }
 }

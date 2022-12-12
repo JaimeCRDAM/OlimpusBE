@@ -35,6 +35,20 @@ class Human extends Authenticatable implements JWTSubject
         'destiny',
     ];
 
+    public function toArray()
+    {
+        if (auth()->guard("god")-> user()) {
+            $this->setAttributeVisibility();
+        }
+
+        return parent::toArray();
+    }
+
+    public function setAttributeVisibility()
+    {
+        $this->makeVisible(array_merge($this->fillable, $this->appends, ['id']));
+    }
+
     public function getJWTIdentifier()
     {
         return $this->getKey();

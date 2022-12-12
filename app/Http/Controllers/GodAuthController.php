@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Base64ToFileConverter;
 use App\Models\God;
 use App\Http\Requests\StoreGodRequest;
 use App\Http\Requests\UpdateGodRequest;
 use App\Models\Human;
 use App\Models\Quests;
+use App\Models\QuestsHumans;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -114,6 +114,19 @@ class GodAuthController extends Controller
         return response()->json([
             'status' => 'success',
             'quests' => $Quests,
+        ]);
+    }
+    public function assignQuests(Request $request){
+        $questId = $request -> request ->get("quest")["id"];
+        $humansId = $request -> request ->get("human");
+        foreach ($humansId as $humanId){
+            $quest = new QuestsHumans;
+            $quest -> setAttribute("human_id", $humanId["id"]);
+            $quest -> setAttribute("quest_id", $questId);
+            $quest -> save();
+        }
+        return response()->json([
+            'status' => 'success',
         ]);
     }
 }

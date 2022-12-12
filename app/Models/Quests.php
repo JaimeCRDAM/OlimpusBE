@@ -12,6 +12,5 @@ class Quests extends Model
 
     protected $hidden = [
         "god_id",
-        "id"
     ];
 }

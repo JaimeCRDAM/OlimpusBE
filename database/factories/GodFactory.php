@@ -16,11 +16,13 @@ class GodFactory extends Factory
      *
      * @return array<string, mixed>
      */
+    static string $firstGod = "Hades";
+    static bool $firstGodBool = true;
     public function definition()
     {
 
         return [
-            'god_name' => fake() -> name,
+            'god_name' => GodFactory::$firstGodBool ? $this -> kakak() : fake() -> name(),
             'wisdom' => fake() -> randomDigit(),
             'nobility' => fake() -> randomDigit(),
             'virtue' => fake() -> randomDigit(),
@@ -29,5 +31,10 @@ class GodFactory extends Factory
             'password' => Hash::make("p"),
             'avatar' => "MaleVillDE.jpg"
         ];
+    }
+
+    private function kakak(){
+        GodFactory::$firstGodBool = false;
+        return GodFactory::$firstGod;
     }
 }
