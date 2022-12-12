@@ -14,9 +14,12 @@ Route::controller(GodAuthController::class)->group(function () {
     Route::post('/gods/updatepassword', 'updatePassword');
     Route::post('/gods/avatar', 'updateAvatar');
     Route::get("/gods/humans", 'humans');
+    Route::get("/hades/humans", 'humansHades');
+    Route::get("/hades/watchhumans", 'watchHumans');
+    Route::post("/hades/humans", 'humansHadesKill');
     Route::get("/gods/quests", 'quests');
     Route::post("/gods/quests", 'assignQuests');
-    Route::post('/gods/Human', 'createHuman');
+    Route::post('/gods/human', 'createHuman');
 
 });
 
