@@ -17,7 +17,8 @@ return new class extends Migration
             $table -> id();
             $table -> integer("destiny");
             $table -> double("chance");
-            $table -> integer("virtue") -> nullable();
+            $table -> integer("virtue_amount") -> nullable();
+            $table -> string("virtue_name") -> nullable();
             $table -> string("key_words") -> nullable();
             $table -> string("description");
             $table -> unsignedBigInteger("god_id");

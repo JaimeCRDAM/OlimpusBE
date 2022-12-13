@@ -19,6 +19,7 @@ return new class extends Migration
             $table -> foreign("quest_id") -> references("id") -> on("quests");
             $table -> unsignedBigInteger("human_id");
             $table -> foreign("human_id") -> references("id") -> on("humans");
+            $table -> boolean("completed") -> default(false);
         });
     }
 

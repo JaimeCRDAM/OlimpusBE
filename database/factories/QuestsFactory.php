@@ -21,6 +21,7 @@ class QuestsFactory extends Factory
             QuestsFactory::$godId = DB::table("gods") -> select('id') -> get() -> all();
             QuestsFactory::$humanId = DB::table("humans") -> select('id') -> get() -> all();
             QuestsFactory::$typeId = DB::table("quests_types") -> select('id') -> get() -> all();
+            QuestsFactory::$fetched = true;
         }
         $random = rand(0, 3);
         if ($random == 0 ){
@@ -35,7 +36,8 @@ class QuestsFactory extends Factory
             "destiny" => rand(5, 20),
             "god_id" => array_rand(QuestsFactory::$godId)+1,
             "chance" => mt_rand() / mt_getrandmax(),
-            "virtue" => $virtue,
+            "virtue_amount" => rand(1, 5),
+            "virtue_name" => $virtue ? QuestsFactory::$virtues[$virtue] : null,
             "key_words" => $keyWords,
             "type_id" => QuestsFactory::$typeId[$random] -> id,
             "description" => $this->faker -> randomLetter()

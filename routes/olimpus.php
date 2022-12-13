@@ -20,6 +20,7 @@ Route::controller(GodAuthController::class)->group(function () {
     Route::get("/gods/quests", 'quests');
     Route::post("/gods/quests", 'assignQuests');
     Route::post('/gods/human', 'createHuman');
+    Route::post('/gods/destiny', 'changeDestiny');
 
 });
 
@@ -40,5 +41,7 @@ Route::controller(HumanAuthController::class)->group(function () {
     Route::post('/humans/refresh', 'refresh');
     Route::post('/humans/updatepassword', 'updatePassword');
     Route::post('/humans/avatar', 'updateAvatar');
+    Route::get("/humans/quests", 'quests');
+    Route::post("/humans/quests", 'resolveQuest');
 
 });

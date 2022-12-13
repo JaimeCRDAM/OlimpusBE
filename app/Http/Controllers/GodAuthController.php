@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Destiny;
 use App\Models\God;
 use App\Http\Requests\StoreGodRequest;
 use App\Http\Requests\UpdateGodRequest;
@@ -185,6 +186,12 @@ class GodAuthController extends Controller
         $humansId = $request -> request ->get("humans");
         foreach ($humansId as $humanId){
             $human = Human::find($humanId["id"]);
+            $fate = $human -> getAttribute("fate");
+            if($fate < Destiny::find(1) -> getAttribute("destiny")){
+                $human -> setAttribute("destiny", "Taratarus");
+            } else{
+                $human -> setAttribute("destiny", "Elysian fields");
+            }
             $human -> setAttribute("alive", 0);
             $human -> save();
         }
@@ -205,5 +212,12 @@ class GodAuthController extends Controller
         return response()->json([
             'status' => 'failed',
         ], 401);
+    }
+
+    public function changeDestiny(Request $request){
+        Destiny::find(1) -> setAttribute("destiny", $request -> request -> get("destiny")) -> save();
+        return response()->json([
+            'status' => 'success',
+        ]);
     }
 }

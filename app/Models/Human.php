@@ -23,15 +23,8 @@ class Human extends Authenticatable implements JWTSubject
 
     protected $hidden = [
         'id',
-        'fate',
-        'god_id',
-        'alive',
         'password',
-        'wisdom',
-        'nobility',
-        'virtue',
-        'wickedness',
-        'audacity',
+        'god_id',
         'destiny',
     ];
 

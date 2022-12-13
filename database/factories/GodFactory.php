@@ -22,7 +22,7 @@ class GodFactory extends Factory
     {
 
         return [
-            'god_name' => GodFactory::$firstGodBool ? $this -> kakak() : fake() -> name(),
+            'god_name' => GodFactory::$firstGodBool ? $this -> Hades() : fake() -> name(),
             'wisdom' => fake() -> randomDigit(),
             'nobility' => fake() -> randomDigit(),
             'virtue' => fake() -> randomDigit(),
@@ -33,7 +33,7 @@ class GodFactory extends Factory
         ];
     }
 
-    private function kakak(){
+    private function Hades(){
         GodFactory::$firstGodBool = false;
         return GodFactory::$firstGod;
     }

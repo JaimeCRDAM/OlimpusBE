@@ -23,7 +23,8 @@ class DatabaseSeeder extends Seeder
             HumanSeeder::class,
             QuestsTypesSeeder::class,
             QuestsSeeder::class,
-            QuestsHumansSeeder::class
+            QuestsHumansSeeder::class,
+            DestinySeeder::class,
         ]);
     }
 }
