@@ -16,25 +16,27 @@ class GodFactory extends Factory
      *
      * @return array<string, mixed>
      */
-    static string $firstGod = "Hades";
-    static bool $firstGodBool = true;
+    static int $index = -1;
+    static array $gods = ["Hades", "Zeus", "Poseidon"];
     public function definition()
     {
-
+        $virtues = [
+            rand(1, 5),
+            rand(1, 5),
+            rand(1, 5),
+            rand(1, 5),
+            rand(1, 5)
+        ];
+        self::$index++;
         return [
-            'god_name' => GodFactory::$firstGodBool ? $this -> Hades() : fake() -> name(),
-            'wisdom' => fake() -> randomDigit(),
-            'nobility' => fake() -> randomDigit(),
-            'virtue' => fake() -> randomDigit(),
-            'wickedness' => fake() -> randomDigit(),
-            'audacity' => fake() -> randomDigit(),
+            'god_name' => self::$gods[self::$index],
+            'wisdom' => $virtues[0],
+            'nobility' => $virtues[1],
+            'virtue' => $virtues[2],
+            'wickedness' => $virtues[3],
+            'audacity' => $virtues[4],
             'password' => Hash::make("p"),
             'avatar' => "MaleVillDE.jpg"
         ];
-    }
-
-    private function Hades(){
-        GodFactory::$firstGodBool = false;
-        return GodFactory::$firstGod;
     }
 }

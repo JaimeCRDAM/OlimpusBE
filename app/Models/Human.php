@@ -25,7 +25,6 @@ class Human extends Authenticatable implements JWTSubject
         'id',
         'password',
         'god_id',
-        'destiny',
     ];
 
     public function toArray()
